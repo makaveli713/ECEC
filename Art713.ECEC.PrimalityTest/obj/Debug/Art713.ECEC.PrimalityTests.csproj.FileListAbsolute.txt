@@ -1,0 +1,7 @@
+C:\Users\Art\documents\visual studio 2012\Projects\Art713.ECEC\Art713.ECEC.PrimalityTest\bin\Debug\Art713.ECEC.PrimalityTest.exe.config
+C:\Users\Art\documents\visual studio 2012\Projects\Art713.ECEC\Art713.ECEC.PrimalityTest\bin\Debug\Art713.ECEC.PrimalityTest.exe
+C:\Users\Art\documents\visual studio 2012\Projects\Art713.ECEC\Art713.ECEC.PrimalityTest\bin\Debug\Art713.ECEC.PrimalityTest.pdb
+C:\Users\Art\documents\visual studio 2012\Projects\Art713.ECEC\Art713.ECEC.PrimalityTest\bin\Debug\nunit.framework.dll
+C:\Users\Art\documents\visual studio 2012\Projects\Art713.ECEC\Art713.ECEC.PrimalityTest\bin\Debug\nunit.framework.xml
+C:\Users\Art\documents\visual studio 2012\Projects\Art713.ECEC\Art713.ECEC.PrimalityTest\obj\Debug\Art713.ECEC.PrimalityTest.exe
+C:\Users\Art\documents\visual studio 2012\Projects\Art713.ECEC\Art713.ECEC.PrimalityTest\obj\Debug\Art713.ECEC.PrimalityTest.pdb
