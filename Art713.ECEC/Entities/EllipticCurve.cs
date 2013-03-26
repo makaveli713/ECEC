@@ -28,7 +28,6 @@ namespace Art713.ECEC.Entities
         
         // methods:
 
-
         public void FillPoint()
         {
             throw new System.NotImplementedException();
@@ -36,7 +35,14 @@ namespace Art713.ECEC.Entities
 
         public Point PointAddition(Point fPoint, Point sPoint)
         {
-            throw new System.NotImplementedException();
+            var sumPoint = new Point();
+            var k = ((sPoint.Ordinate - fPoint.Ordinate)/(sPoint.Abscissa - fPoint.Abscissa));
+            k = Auxiliary.Math.Mod(k,P);
+            sumPoint.Abscissa = (k*k - fPoint.Abscissa - sPoint.Abscissa);
+            sumPoint.Abscissa = Auxiliary.Math.Mod(sumPoint.Abscissa, P);
+            sumPoint.Ordinate = (k*(fPoint.Abscissa - sumPoint.Abscissa) - fPoint.Ordinate);
+            sumPoint.Ordinate = Auxiliary.Math.Mod(sumPoint.Ordinate,P);
+            return sumPoint;
         }
 
         public Point PointDoubling(Point point)
@@ -48,5 +54,15 @@ namespace Art713.ECEC.Entities
         {
             throw new System.NotImplementedException();
         }
+
+        // constructors:
+        public EllipticCurve(int a, int b, int p)
+        {
+            A = a;
+            B = b;
+            P = p;
+        }
+
+        public EllipticCurve(){}
     }
 }
