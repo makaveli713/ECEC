@@ -51,6 +51,10 @@
       <Project>{acd91d5e-0f5a-47f0-906f-210a05cc168b}</Project>
       <Name>Art713.ECEC.PrimalityTests</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Art713.ECEC\Art713.ECEC.csproj">
+      <Project>{8806E091-283D-4001-8ED5-5368DCB7B786}</Project>
+      <Name>Art713.ECEC</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
