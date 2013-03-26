@@ -36,7 +36,7 @@ namespace Art713.ECEC.Entities
         public Point PointAddition(Point fPoint, Point sPoint)
         {
             var sumPoint = new Point();
-            var k = ((sPoint.Ordinate - fPoint.Ordinate)/(sPoint.Abscissa - fPoint.Abscissa));
+            var k = Auxiliary.Math.Mod((sPoint.Ordinate - fPoint.Ordinate),P)/(sPoint.Abscissa - fPoint.Abscissa);
             k = Auxiliary.Math.Mod(k,P);
             sumPoint.Abscissa = (k*k - fPoint.Abscissa - sPoint.Abscissa);
             sumPoint.Abscissa = Auxiliary.Math.Mod(sumPoint.Abscissa, P);
@@ -47,7 +47,14 @@ namespace Art713.ECEC.Entities
 
         public Point PointDoubling(Point point)
         {
-            throw new System.NotImplementedException();
+            var doublePoint = new Point();
+            var k = Auxiliary.Math.Mod((3*point.Abscissa*point.Abscissa + A),P) / (2*point.Ordinate);
+            k = Auxiliary.Math.Mod(k, P);
+            doublePoint.Abscissa = (k * k - 2*point.Abscissa);
+            doublePoint.Abscissa = Auxiliary.Math.Mod(doublePoint.Abscissa, P);
+            doublePoint.Ordinate = (k * (point.Abscissa - doublePoint.Abscissa) - point.Ordinate);
+            doublePoint.Ordinate = Auxiliary.Math.Mod(doublePoint.Ordinate, P);            
+            return doublePoint;
         }
 
         public Point PointMultiplication(Point point, int n)
