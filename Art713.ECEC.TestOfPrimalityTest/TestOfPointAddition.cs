@@ -1,24 +1,27 @@
-﻿using NUnit.Framework;
+﻿using Art713.ECEC.Entities;
+using NUnit.Framework;
 
 namespace Art713.ECEC.TestOfPrimalityTest
 {
     [TestFixture]
     class TestOfPointAddition
     {
-        private Point _setup;
+        private EllipticCurve _setup;
 
         [TestFixtureSetUp]
         public void SetupBeforeEveryTestFunction()
         {
-            _setup = new Point();
+            _setup = new EllipticCurve(2,6,7);
         }
 
         [Test]
         public void ShouldReturnPointWhenAddingOtherTwoPoint()
         {
-            Point firstPoint = new Point(5,1);
-            Point secondPoint = new Point(4,6);
-            Assert.That(_setup.PointAddition(firstPoint,secondPoint),Is.EqualTo(new Point(2,5)));
+            var firstPoint = new Point(5,1);
+            var secondPoint = new Point(4,6);
+            var sumPoint = new Point(2, 5);
+            Assert.That(_setup.PointAddition(firstPoint,secondPoint).Abscissa,Is.EqualTo(sumPoint.Abscissa));
+            Assert.That(_setup.PointAddition(firstPoint, secondPoint).Ordinate, Is.EqualTo(sumPoint.Ordinate));
         }
     }
 }

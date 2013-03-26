@@ -8,10 +8,24 @@
         /// <summary>
         /// first coordinate of the point
         /// </summary>
-        public int XPoint { get; set; } // int to BigInteger ?
+        public int Abscissa { get; set; } // int to BigInteger ?
         /// <summary>
         /// second coordinate of the point
         /// </summary>
-        public int YPoint { get; set; } // int to BigInteger ?
+        public int Ordinate { get; set; } // int to BigInteger ?
+        /// <summary>
+        /// Point's class constructor
+        /// </summary>
+        /// <param name="xPoint">Abscissa</param>
+        /// <param name="yPoint">Ordinate</param>
+        public Point(int xPoint, int yPoint)
+        {
+            Abscissa = xPoint;
+            Ordinate = yPoint;
+        }
+        /// <summary>
+        /// Point's class default constructor
+        /// </summary>
+        public Point(){}               
     }
 }
