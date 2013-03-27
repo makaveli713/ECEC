@@ -1,4 +1,5 @@
-﻿using Art713.ECEC.Entities;
+﻿using System.Collections.Generic;
+using Art713.ECEC.Entities;
 using NUnit.Framework;
 
 namespace Art713.ECEC.TestOfPrimalityTest
@@ -7,8 +8,7 @@ namespace Art713.ECEC.TestOfPrimalityTest
     class TestOfPointAddition
     {
         private EllipticCurve _setup;
-
-        [TestFixtureSetUp]
+        private Dictionary<int,Point> _points = new Dictionary<int, Point>();
         public void SetupBeforeEveryTestFunction()
         {
             _setup = new EllipticCurve(2, 6, 7);
@@ -23,6 +23,7 @@ namespace Art713.ECEC.TestOfPrimalityTest
             Assert.That(_setup.PointAddition(firstPoint, secondPoint).Abscissa, Is.EqualTo(sumPoint.Abscissa));
             Assert.That(_setup.PointAddition(firstPoint, secondPoint).Ordinate, Is.EqualTo(sumPoint.Ordinate));
         }
+
         [Test]
         public void ShouldReturnPointWhenDoublingPoint()
         {
@@ -31,6 +32,34 @@ namespace Art713.ECEC.TestOfPrimalityTest
             Assert.That(_setup.PointDoubling(firstPoint).Abscissa, Is.EqualTo(doublePoint.Abscissa));
             Assert.That(_setup.PointDoubling(firstPoint).Ordinate, Is.EqualTo(doublePoint.Ordinate));
         }
+
+        public Dictionary<int,Point> Points
+        {
+            get
+            {
+                _points.Add(2, new Point(6, 3));
+                _points.Add(3, new Point(10, 6));
+                _points.Add(4, new Point(3, 1));
+                _points.Add(5, new Point(9, 16));
+                _points.Add(6, new Point(16, 13));
+                _points.Add(7, new Point(0, 6));
+                _points.Add(8, new Point(13, 7));
+                _points.Add(9, new Point(7, 6));
+                _points.Add(10, new Point(7, 11));
+                return _points;
+            }
+        }
+
+
+        [Test,
+        TestCaseSource("Points")]
+        public void ShouldReturnAnotherPointWhenMultiplyPoints(KeyValuePair<int,Point> keyValuePair )
+        {
+            _setup = new EllipticCurve(2,2,17);
+            var point = new Point(5,1);           
+            Assert.That(_setup.PointMultiplication(point,keyValuePair.Key),Is.EqualTo(keyValuePair.Value));           
+        }
+
         [TestCase(7, Result = new byte[] { 1, 1, 1, 0, 0, 0, 0, 0 })]
         [TestCase(10, Result = new byte[] { 0, 1, 0, 1, 0, 0, 0, 0 })]
         [TestCase(129, Result = new byte[] { 1, 0, 0, 0, 0, 0, 0, 1 })]
