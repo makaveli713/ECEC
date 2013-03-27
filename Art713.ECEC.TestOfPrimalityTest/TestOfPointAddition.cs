@@ -27,10 +27,18 @@ namespace Art713.ECEC.TestOfPrimalityTest
         public void ShouldReturnPointWhenDoublingPoint()
         {
             var firstPoint = new Point(5, 1);
-            var doublePoint = new Point(4, 6);            
+            var doublePoint = new Point(4, 6);
             Assert.That(_setup.PointDoubling(firstPoint).Abscissa, Is.EqualTo(doublePoint.Abscissa));
             Assert.That(_setup.PointDoubling(firstPoint).Ordinate, Is.EqualTo(doublePoint.Ordinate));
-        
+        }
+        [TestCase(7, Result = new byte[] { 1, 1, 1, 0, 0, 0, 0, 0 })]
+        [TestCase(10, Result = new byte[] { 0, 1, 0, 1, 0, 0, 0, 0 })]
+        [TestCase(129, Result = new byte[] { 1, 0, 0, 0, 0, 0, 0, 1 })]
+        [TestCase(256, Result = new byte[] { 0, 0, 0, 0, 0, 0, 0, 0, 1 })]
+        [TestCase(514, Result = new byte[] { 0, 1, 0, 0, 0, 0, 0, 0, 0, 1 })]
+        public byte[] ShouldReturnBitsOfGivenNumber(int number)
+        {
+            return Auxiliary.Math.GetBits(number);
         }
     }
 }
