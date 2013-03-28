@@ -52,21 +52,22 @@ namespace Art713.ECEC.TestOfPrimalityTest
             }
         }
 
-
         [Test,
         TestCaseSource("Points")]
         public void ShouldReturnAnotherPointWhenMultiplyPoints(KeyValuePair<int,Point> keyValuePair )
         {
             _setup = new EllipticCurve(2,2,17);
-            var point = new Point(5,1);           
-            Assert.That(_setup.PointMultiplication(point,keyValuePair.Key),Is.EqualTo(keyValuePair.Value));           
+            var point = new Point(5,1);
+            var newPoint = _setup.PointMultiplication(point, keyValuePair.Key);
+            Assert.That(newPoint.Abscissa,Is.EqualTo(keyValuePair.Value.Abscissa));
+            Assert.That(newPoint.Ordinate, Is.EqualTo(keyValuePair.Value.Ordinate));           
         }
 
-        [TestCase(7, Result = new byte[] { 1, 1, 1, 0, 0, 0, 0, 0 })]
-        [TestCase(10, Result = new byte[] { 0, 1, 0, 1, 0, 0, 0, 0 })]
+        [TestCase(7, Result = new byte[] { 1, 1, 1 })]
+        [TestCase(10, Result = new byte[] { 1, 0, 1, 0 })]
         [TestCase(129, Result = new byte[] { 1, 0, 0, 0, 0, 0, 0, 1 })]
-        [TestCase(256, Result = new byte[] { 0, 0, 0, 0, 0, 0, 0, 0, 1 })]
-        [TestCase(514, Result = new byte[] { 0, 1, 0, 0, 0, 0, 0, 0, 0, 1 })]
+        [TestCase(256, Result = new byte[] { 1, 0, 0, 0, 0, 0, 0, 0, 0 })]
+        [TestCase(514, Result = new byte[] { 1, 0, 0, 0, 0, 0, 0, 0, 1, 0 })]
         public byte[] ShouldReturnBitsOfGivenNumber(int number)
         {
             return Auxiliary.Math.GetBits(number);
