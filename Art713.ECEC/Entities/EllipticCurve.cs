@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Art713.ECEC.Entities
 {
@@ -7,6 +8,20 @@ namespace Art713.ECEC.Entities
     /// </summary>
     public class EllipticCurve
     {
+        /// <summary>
+        /// generator point
+        /// </summary>
+        public Point Generator
+        {
+            get
+            {
+                return new Point(0, 1);
+            }
+        }
+
+        // fields:
+        private List<Point> _points;
+
         // properties:
 
         /// <summary>
@@ -21,11 +36,40 @@ namespace Art713.ECEC.Entities
         /// "P" is a modulus, third parameter of the elliptic curve
         /// </summary>
         public int P { get; set; }
+
         /// <summary>
         /// "Points" is a list objects of class Point
         /// </summary>
-        public List<Point> Points { get; set; }
-        
+        public List<Point> Points
+        {
+            get
+            {
+                _points.Add(new Point(0, 1));
+                _points.Add(new Point(0, 10));
+
+                _points.Add(new Point(1, 5));
+                _points.Add(new Point(1, 6));
+
+                _points.Add(new Point(2, 0));
+
+                _points.Add(new Point(3, 3));
+                _points.Add(new Point(3, 8));
+
+                _points.Add(new Point(4, 5));
+                _points.Add(new Point(4, 6));
+
+                _points.Add(new Point(6, 5));
+                _points.Add(new Point(6, 6));
+
+                _points.Add(new Point(8, 2));
+                _points.Add(new Point(8, 9));
+
+                _points.Add(new Point(0, 0));
+
+                return _points;
+            }
+        }
+
         // methods:
 
         public void FillPoint()
@@ -37,14 +81,14 @@ namespace Art713.ECEC.Entities
         {
             var sumPoint = new Point();
 
-            var k = Auxiliary.Math.Mod((sPoint.Ordinate - fPoint.Ordinate),P) * Auxiliary.Math.ModularMultiplicativeInverse( Auxiliary.Math.Mod((sPoint.Abscissa - fPoint.Abscissa),P),P);
-            k = Auxiliary.Math.Mod(k,P);
+            var k = Auxiliary.Math.Mod((sPoint.Ordinate - fPoint.Ordinate), P) * Auxiliary.Math.ModularMultiplicativeInverse(Auxiliary.Math.Mod((sPoint.Abscissa - fPoint.Abscissa), P), P);
+            k = Auxiliary.Math.Mod(k, P);
 
-            sumPoint.Abscissa = (k*k - fPoint.Abscissa - sPoint.Abscissa);
+            sumPoint.Abscissa = (k * k - fPoint.Abscissa - sPoint.Abscissa);
             sumPoint.Abscissa = Auxiliary.Math.Mod(sumPoint.Abscissa, P);
 
-            sumPoint.Ordinate = (k*(fPoint.Abscissa - sumPoint.Abscissa) - fPoint.Ordinate);
-            sumPoint.Ordinate = Auxiliary.Math.Mod(sumPoint.Ordinate,P);
+            sumPoint.Ordinate = (k * (fPoint.Abscissa - sumPoint.Abscissa) - fPoint.Ordinate);
+            sumPoint.Ordinate = Auxiliary.Math.Mod(sumPoint.Ordinate, P);
 
             return sumPoint;
         }
@@ -53,14 +97,14 @@ namespace Art713.ECEC.Entities
         {
             var doublePoint = new Point();
 
-            var k = Auxiliary.Math.Mod((3*point.Abscissa*point.Abscissa + A),P) * Auxiliary.Math.ModularMultiplicativeInverse(2*point.Ordinate,P);
+            var k = Auxiliary.Math.Mod((3 * point.Abscissa * point.Abscissa + A), P) * Auxiliary.Math.ModularMultiplicativeInverse(2 * point.Ordinate, P);
             k = Auxiliary.Math.Mod(k, P);
 
-            doublePoint.Abscissa = (k * k - 2*point.Abscissa);
+            doublePoint.Abscissa = (k * k - 2 * point.Abscissa);
             doublePoint.Abscissa = Auxiliary.Math.Mod(doublePoint.Abscissa, P);
 
             doublePoint.Ordinate = (k * (point.Abscissa - doublePoint.Abscissa) - point.Ordinate);
-            doublePoint.Ordinate = Auxiliary.Math.Mod(doublePoint.Ordinate, P);            
+            doublePoint.Ordinate = Auxiliary.Math.Mod(doublePoint.Ordinate, P);
 
             return doublePoint;
         }
@@ -81,11 +125,20 @@ namespace Art713.ECEC.Entities
         // constructors:
         public EllipticCurve(int a, int b, int p)
         {
-            A = a;
-            B = b;
-            P = p;
+            try
+            {
+                if (Auxiliary.Math.Mod(4 * a * a * a + 27 * b * b, p) == 0)
+                    throw new Exception("singular curve!");
+                A = a;
+                B = b;
+                P = p;
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception.Message);
+            }
         }
 
-        public EllipticCurve(){}
+        public EllipticCurve() { }
     }
 }
