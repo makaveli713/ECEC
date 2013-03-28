@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Globalization;
+using System.Numerics;
 
 namespace Art713.ECEC.Auxiliary
 {
     public static class Math
     {
-        public static int ExtendedEuclideanAlgorithm(int firstNumber, int secondNumber)
+        public static BigInteger ExtendedEuclideanAlgorithm(BigInteger firstNumber, BigInteger secondNumber)
         {
-            int k1, k2, k3, j1, j2, j3, i1, i2, i3, q;
+            BigInteger k1, k2, k3, j1, j2, j3, i1, i2, i3, q;
             k1 = 1; k2 = 0; k3 = firstNumber;
             j1 = 0; j2 = 1; j3 = secondNumber;
 
@@ -21,15 +22,14 @@ namespace Art713.ECEC.Auxiliary
             return k2; // k2 for Multiplicative Reverse Number, k3 - Greatest Common Divisor
         }
 
-        public static int ModularMultiplicativeInverse(int number, int modulus)
+        public static BigInteger ModularMultiplicativeInverse(BigInteger number, BigInteger modulus)
         {
             return Mod(ExtendedEuclideanAlgorithm(modulus, number),modulus);
         }
 
-        public static int Mod(int a, int b)
+        public static BigInteger Mod(BigInteger a, BigInteger b)
         {
             if (a < 0)
-                //return b + (a % b);
                 return (b + (a % b)) % b;
             return a % b;
         }

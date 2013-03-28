@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Numerics;
 
 namespace Art713.ECEC.Entities
 {
@@ -7,7 +8,24 @@ namespace Art713.ECEC.Entities
     /// class EllipticCurve represent a elliptic curve
     /// </summary>
     public class EllipticCurve
-    {
+    {        
+        // fields:
+        private List<Point> _points;
+
+        // properties:
+
+        /// <summary>
+        /// "A" is a first parameter of the elliptic curve
+        /// </summary>
+        public BigInteger A { get; set; }
+        /// <summary>
+        /// "B" is a second parameter of the elliptic curve
+        /// </summary>
+        public BigInteger B { get; set; }
+        /// <summary>
+        /// "P" is a modulus, third parameter of the elliptic curve
+        /// </summary>
+        public BigInteger P { get; set; }
         /// <summary>
         /// generator point
         /// </summary>
@@ -18,24 +36,10 @@ namespace Art713.ECEC.Entities
                 return new Point(0, 1);
             }
         }
-
-        // fields:
-        private List<Point> _points;
-
-        // properties:
-
         /// <summary>
-        /// "A" is a first parameter of the elliptic curve
+        /// q - порядок подмножества точек кривой
         /// </summary>
-        public int A { get; set; }
-        /// <summary>
-        /// "B" is a second parameter of the elliptic curve
-        /// </summary>
-        public int B { get; set; }
-        /// <summary>
-        /// "P" is a modulus, third parameter of the elliptic curve
-        /// </summary>
-        public int P { get; set; }
+        public BigInteger Q { get { return 7; } }
 
         /// <summary>
         /// "Points" is a list objects of class Point
@@ -123,7 +127,7 @@ namespace Art713.ECEC.Entities
         }
 
         // constructors:
-        public EllipticCurve(int a, int b, int p)
+        public EllipticCurve(BigInteger a, BigInteger b, BigInteger p)
         {
             try
             {
