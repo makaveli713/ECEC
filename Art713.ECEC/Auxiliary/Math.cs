@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Globalization;
-using System.Numerics;
 
 namespace Art713.ECEC.Auxiliary
 {

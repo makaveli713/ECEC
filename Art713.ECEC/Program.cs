@@ -13,6 +13,31 @@ namespace Art713.ECEC
         static void Main()
         {
             Console.WriteLine("ECEC");
+            //Console.WriteLine(Auxiliary.Math.Mod(77,17));
+            //Console.WriteLine(Auxiliary.Math.Mod((int)Auxiliary.Math.ExtendedEuclideanAlgorithm(17,2),17));
+            //Console.WriteLine(Auxiliary.Math.ModularMultiplicativeInverse(19, 4));
+
+            //Console.WriteLine(Auxiliary.Math.GetBits(256));
+
+            //Console.WriteLine(Auxiliary.Math.ModularMultiplicativeInverse(16,17));
+            
+            
+            var point = new Point(5, 1);
+            var ec = new EllipticCurve(2, 2, 17);
+            var newPoint = ec.PointMultiplication(point, 4);
+            Console.WriteLine("({0},{1})",newPoint.Abscissa,newPoint.Ordinate);
+            
+
+            /*
+            var point1 = new Point(5, 1);
+            var point2 = new Point(4, 6);
+            var ec = new EllipticCurve(2, 6, 7);
+            Console.WriteLine("({0},{1})",ec.PointAddition(point1, point2).Abscissa, ec.PointAddition(point1, point2).Ordinate);
+             * */
+
+
+           
+
             /*
             for (var x = 0; x < 258; x++)
             {
@@ -23,7 +48,7 @@ namespace Art713.ECEC
                     Console.Write((x >> i) & 1);
                 Console.WriteLine();
             }
-            */
+            
 
             
             for (int i = 0; i < 260; i++)
@@ -40,7 +65,7 @@ namespace Art713.ECEC
                 }
                 Console.WriteLine();
             }
-            
+            */
             //var firstPoint = new Point(5, 1);
             ////var secondPoint = new Point(4, 6); 
             //var obj = new EllipticCurve(2,6,7);

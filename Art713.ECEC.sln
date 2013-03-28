@@ -5,7 +5,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Art713.ECEC", "Art713.ECEC\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Art713.ECEC.PrimalityTests", "Art713.ECEC.PrimalityTest\Art713.ECEC.PrimalityTests.csproj", "{ACD91D5E-0F5A-47F0-906F-210A05CC168B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Art713.ECEC.TestOfPrimalityTest", "Art713.ECEC.TestOfPrimalityTest\Art713.ECEC.TestOfPrimalityTest.csproj", "{E99BBFE4-FDA8-4DBC-B75D-F0BA97D11A67}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Art713.ECEC.Tests", "Art713.ECEC.TestOfPrimalityTest\Art713.ECEC.Tests.csproj", "{E99BBFE4-FDA8-4DBC-B75D-F0BA97D11A67}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
