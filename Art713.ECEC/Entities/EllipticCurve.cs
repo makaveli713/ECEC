@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Globalization;
 
 namespace Art713.ECEC.Entities
 {
@@ -60,8 +59,15 @@ namespace Art713.ECEC.Entities
 
         public Point PointMultiplication(Point point, int n)
         {
-            var newPoint = new Point(0, 0);
-            var nB = byte.Parse(n.ToString(CultureInfo.InvariantCulture));
+            //var newPoint = new Point(0, 0);
+            var newPoint = point;
+            var nBits = Auxiliary.Math.GetBits(n);
+            foreach (var bit in nBits)
+            {
+                newPoint = PointDoubling(newPoint);
+                if (bit==1)
+                    newPoint = PointAddition(newPoint, point);
+            }
             return newPoint;
         }
 
