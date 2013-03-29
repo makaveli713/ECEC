@@ -35,20 +35,21 @@ namespace Art713.ECEC.Auxiliary
             return a % b;
         }
         
+        
         public static byte[] GetBits(int number)
         {
-            var k = (number/255 == 0) ? 0 : number/255; 
+            var k = (number / 255 == 0) ? 0 : number / 255;
             var temp = string.Empty;
             for (var i = 8 + k; i >= 0; i--)
-                temp += ((number >> i) & 1).ToString(CultureInfo.InvariantCulture);
+                temp += (( number >> i) & 1).ToString(CultureInfo.InvariantCulture);
             temp = temp.TrimStart('0');
             var bytes = new byte[temp.Length];
-            for (var i = 0; i < temp.Length; i++)            
-                bytes[i] = Byte.Parse(temp[i].ToString(CultureInfo.InvariantCulture));            
-            
-            return bytes;
-        }
+            for (var i = 0; i < temp.Length; i++)
+                bytes[i] = Byte.Parse(temp[i].ToString(CultureInfo.InvariantCulture));
 
+            return bytes;
+        }        
+        
         public static byte[] GetBits(BigInteger number)
         {
             var resultBaseNumberArrayDimension = 2048;
@@ -68,6 +69,6 @@ namespace Art713.ECEC.Auxiliary
                 bytes[i] = Byte.Parse(temp[i].ToString(CultureInfo.InvariantCulture));
 
             return bytes;
-        }
+        }         
     }
 }

@@ -33,8 +33,12 @@ namespace Art713.ECEC.Entities
         /// </summary>
         public BigInteger Q { get; set; }
         /// <summary>
-        /// generator point
+        /// # of points
         /// </summary>
+        public BigInteger N { get; set; }
+        /// <summary>
+        /// generator point
+        /// </summary>        
         public Point Generator { get; set; }        
         /// <summary>
         /// "Points" is a list objects of class Point
@@ -119,6 +123,8 @@ namespace Art713.ECEC.Entities
                 if (nBits[i] == 1)
                     newPoint = PointAddition(newPoint, point);
             }
+            newPoint.Abscissa = Auxiliary.Math.Mod(newPoint.Abscissa, P);
+            newPoint.Ordinate = Auxiliary.Math.Mod(newPoint.Ordinate, P);
             return newPoint;
         }
 

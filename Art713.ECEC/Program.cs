@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Art713.ECEC.Entities;
+using System.Numerics;
 
 namespace Art713.ECEC
 {
@@ -13,20 +8,26 @@ namespace Art713.ECEC
         static void Main()
         {
             Console.WriteLine("ECEC");
+
+            var obj = new Encrypt.Encrypt("Artem Trubitsyn");
+            //var obj = new Encrypt.Encrypt(713030391);
+
+            //var obj = new Encrypt.Encrypt("Trubitsyn Artem");
+
             //Console.WriteLine(Auxiliary.Math.Mod(77,17));
             //Console.WriteLine(Auxiliary.Math.Mod((int)Auxiliary.Math.ExtendedEuclideanAlgorithm(17,2),17));
             //Console.WriteLine(Auxiliary.Math.ModularMultiplicativeInverse(19, 4));
 
             //Console.WriteLine(Auxiliary.Math.GetBits(256));
 
-            //Console.WriteLine(Auxiliary.Math.ModularMultiplicativeInverse(16,17));
+            //Console.WriteLine(Auxiliary.Math.ModularMultiplicativeInverse(7,7));
             
-            
+            /*
             var point = new Point(5, 1);
             var ec = new EllipticCurve(2, 2, 17);
             var newPoint = ec.PointMultiplication(point, 4);
             Console.WriteLine("({0},{1})",newPoint.Abscissa,newPoint.Ordinate);
-            
+            */
 
             /*
             var point1 = new Point(5, 1);

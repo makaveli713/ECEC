@@ -7,7 +7,7 @@ namespace Art713.ECEC.Entities
     /// </summary>
     public class Point
     {
-        public EllipticCurve ellipticCurve = new EllipticCurve();
+        //public EllipticCurve ellipticCurve = new EllipticCurve();
         /// <summary>
         /// first coordinate of the point
         /// </summary>
