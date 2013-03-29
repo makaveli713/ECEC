@@ -61,7 +61,8 @@ namespace Art713.ECEC.Encrypt
             var provider = new RNGCryptoServiceProvider();
             var randomBytesArray = new byte[bound.ToByteArray().Length-1];
             provider.GetNonZeroBytes(randomBytesArray);            
-            return new BigInteger(randomBytesArray);
+            var newBigInteger = new BigInteger(randomBytesArray);
+            return (newBigInteger > 0) ? newBigInteger : -newBigInteger;
         }
     }
 }
