@@ -10,10 +10,12 @@ namespace Art713.ECEC.Entities
     public class EllipticCurve
     {        
         // fields:
+        /// <summary>
+        /// List of the points
+        /// </summary>
         private List<Point> _points;
 
         // properties:
-
         /// <summary>
         /// "A" is a first parameter of the elliptic curve
         /// </summary>
@@ -27,20 +29,13 @@ namespace Art713.ECEC.Entities
         /// </summary>
         public BigInteger P { get; set; }
         /// <summary>
-        /// generator point
-        /// </summary>
-        public Point Generator
-        {
-            get
-            {
-                return new Point(0, 1);
-            }
-        }
-        /// <summary>
         /// q - порядок подмножества точек кривой
         /// </summary>
-        public BigInteger Q { get { return 7; } }
-
+        public BigInteger Q { get; set; }
+        /// <summary>
+        /// generator point
+        /// </summary>
+        public Point Generator { get; set; }        
         /// <summary>
         /// "Points" is a list objects of class Point
         /// </summary>
@@ -48,6 +43,7 @@ namespace Art713.ECEC.Entities
         {
             get
             {
+                /*
                 _points.Add(new Point(0, 1));
                 _points.Add(new Point(0, 10));
 
@@ -69,8 +65,8 @@ namespace Art713.ECEC.Entities
                 _points.Add(new Point(8, 9));
 
                 _points.Add(new Point(0, 0));
-
-                return _points;
+                */
+                return _points;                
             }
         }
 
@@ -113,7 +109,7 @@ namespace Art713.ECEC.Entities
             return doublePoint;
         }
 
-        public Point PointMultiplication(Point point, int n)
+        public Point PointMultiplication(Point point, BigInteger n)
         {
             var newPoint = point;
             var nBits = Auxiliary.Math.GetBits(n);
