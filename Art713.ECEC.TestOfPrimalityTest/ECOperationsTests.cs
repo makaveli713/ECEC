@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Numerics;
 using Art713.ECEC.Entities;
 using NUnit.Framework;
 
@@ -8,7 +9,8 @@ namespace Art713.ECEC.TestOfPrimalityTest
     class ECOperationsTests
     {
         private EllipticCurve _setup;
-        private Dictionary<int,Point> _points = new Dictionary<int, Point>();
+        private Dictionary<int, Point> _points = new Dictionary<int, Point>();
+        private Dictionary<BigInteger, byte[]> _big = new Dictionary<BigInteger, byte[]>();
         
         [SetUp]
         public void SetupBeforeEveryTestFunction()
@@ -72,5 +74,26 @@ namespace Art713.ECEC.TestOfPrimalityTest
         {
             return Auxiliary.Math.GetBits(number);
         }
+
+        [Test,
+        TestCaseSource("BigIntegerNumbers")]
+        public void ShouldReturnBitsOfGivenBigIntegerNumber(KeyValuePair<BigInteger,byte[]> keyValuePair)
+        {
+            Assert.That(Auxiliary.Math.GetBits(keyValuePair.Key),Is.EqualTo(keyValuePair.Value));
+        }
+
+        public Dictionary<BigInteger,byte[]> BigIntegerNumbers
+        {
+            get
+            {
+                _big.Add(7, new byte[] { 1, 1, 1 });
+                _big.Add(10, new byte[] { 1, 0, 1, 0 });
+                _big.Add(129, new byte[] { 1, 0, 0, 0, 0, 0, 0, 1 });
+                _big.Add(256, new byte[] { 1, 0, 0, 0, 0, 0, 0, 0, 0 });
+                _big.Add(514, new byte[] { 1, 0, 0, 0, 0, 0, 0, 0, 1, 0 });
+                return _big;
+            }
+        }
+
     }
 }

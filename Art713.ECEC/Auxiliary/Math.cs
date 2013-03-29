@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Linq;
 using System.Numerics;
 
 namespace Art713.ECEC.Auxiliary
@@ -46,6 +47,27 @@ namespace Art713.ECEC.Auxiliary
                 bytes[i] = Byte.Parse(temp[i].ToString(CultureInfo.InvariantCulture));            
             
             return bytes;
-        }        
+        }
+
+        public static byte[] GetBits(BigInteger number)
+        {
+            var resultBaseNumberArrayDimension = 2048;
+            var resultBaseNumberArray = new byte[resultBaseNumberArrayDimension];
+
+            for (; number > 0; number /= 2)
+            {
+                var bit = byte.Parse((number % 2).ToString());
+                resultBaseNumberArray[--resultBaseNumberArrayDimension] = bit;
+            }
+
+            var temp = resultBaseNumberArray.Aggregate(string.Empty, (current, bit) => current + bit.ToString(CultureInfo.InvariantCulture));
+            temp = temp.TrimStart('0');
+
+            var bytes = new byte[temp.Length];
+            for (var i = 0; i < temp.Length; i++)
+                bytes[i] = Byte.Parse(temp[i].ToString(CultureInfo.InvariantCulture));
+
+            return bytes;
+        }
     }
 }
