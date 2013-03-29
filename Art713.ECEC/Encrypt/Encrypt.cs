@@ -15,10 +15,10 @@ namespace Art713.ECEC.Encrypt
 
         public Encrypt(string textToEncrypt)
         {
-            EllipticCurve = new EllipticCurve(1,1,11);
-            KeyLength = 128;
+            //EllipticCurve = new EllipticCurve(1,1,11);
+            //KeyLength = 128;
 
-            GenerateKeys();
+            //GenerateKeys();
 
             /*
             var k = new Random().Next(EllipticCurve.Q);
@@ -46,19 +46,22 @@ namespace Art713.ECEC.Encrypt
 
         private void GenerateKeys()
         {
+            /*
             var randomByteGenerator = new RNGCryptoServiceProvider();
             var randomByteArray = new byte[EllipticCurve.Q];
             randomByteGenerator.GetNonZeroBytes(randomByteArray);
 
             MySecretKey = new BigInteger(randomByteArray);
             //MyPublicKey = EllipticCurve.PointMultiplication(EllipticCurve.Generator, MySecretKey);
+             */
         }
 
         public static BigInteger RandomBigIntegerGenerator(BigInteger bound)
         {
             var provider = new RNGCryptoServiceProvider();
-            var randomBytesArray = new byte[];
-            provider.GetNonZeroBytes();
+            var randomBytesArray = new byte[bound.ToByteArray().Length-1];
+            provider.GetNonZeroBytes(randomBytesArray);            
+            return new BigInteger(randomBytesArray);
         }
     }
 }
