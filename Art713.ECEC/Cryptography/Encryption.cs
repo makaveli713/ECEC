@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Numerics;
 using System.Security.Cryptography;
 using System.Text;
@@ -78,55 +79,112 @@ namespace Art713.ECEC.Cryptography
             if (textToEncryptBigInteger < EllipticCurve.P)
             {
                 var encryptedTextBigInteger = textToEncryptBigInteger*P.Abscissa;
-                    Console.WriteLine("encrypted text: \n{0}", encryptedTextBigInteger);
+                Console.WriteLine("encrypted text: \n{0}", encryptedTextBigInteger);
                 encryptedTextBigInteger = Auxiliary.Math.Mod(encryptedTextBigInteger, EllipticCurve.P);
-                    Console.WriteLine("encrypted text [Mod]: \n{0}", encryptedTextBigInteger);
+                Console.WriteLine("encrypted text [Mod]: \n{0}", encryptedTextBigInteger);
+                Decrypt(encryptedTextBigInteger.ToString() + " " + R.Abscissa.ToString() + " " + R.Ordinate.ToString());
                 return encryptedTextBigInteger.ToString() + " " + R.Abscissa.ToString() + " " + R.Ordinate.ToString();
             }
-
-            var pByteArr = Encoding.GetBytes(EllipticCurve.P.ToString());
-            var textByteArr = Encoding.GetBytes(textToEncryptBigInteger.ToString());// same as textToEncryptBytesArray ?
-
-            var pByteArrLength = pByteArr.Length;
-            var textByteArrLength = textByteArr.Length;
-            
-            var index = 0;
-            var part = new BigInteger[textByteArrLength / pByteArrLength + 1];
-            var partByteArr = new byte[pByteArrLength];
-            for (var i = 0; i < textByteArrLength / pByteArrLength + 1; i++)
+            else
             {
-                for (var j = 0; j < pByteArrLength; j++)
-                {
-                    partByteArr[j] = textByteArr[j + pByteArrLength * i];
-                }
-                part[index] = new BigInteger(partByteArr[i]);
-                ++index;
-            }
+                var pByteArr = Encoding.GetBytes(EllipticCurve.P.ToString());
+                var textByteArr = textToEncryptBigInteger.ToByteArray();
 
-                // Console.WriteLine("text length is more than modulus!");
-                // do smth! 
-            return null;
+                var pByteArrLength = pByteArr.Length;
+                var textByteArrLength = textByteArr.Length;
+
+                var index = 0;
+                var part = new BigInteger[textByteArrLength/pByteArrLength + 1];
+                var partByteArr = new byte[pByteArrLength];
+
+
+                for (var i = 0; i < textByteArrLength/pByteArrLength + 1; i++)
+                {
+                    for (var j = 0; j < pByteArrLength; j++)
+                    {
+                        if (j + pByteArrLength*i < textByteArrLength)
+                            partByteArr[j] = textByteArr[j + pByteArrLength*i];
+                        else
+                            partByteArr[j] = 0;
+                    }
+                    part[index] = new BigInteger(partByteArr);
+                    ++index;
+                }
+
+                var encryptedTextString = part
+                    .Select(t => t*P.Abscissa)
+                    .Select(encryptedTextBigInteger => Auxiliary.Math.Mod(encryptedTextBigInteger, EllipticCurve.P))
+                    .Aggregate(string.Empty,
+                               (current, encryptedTextBigInteger) => current + encryptedTextBigInteger.ToString());
+
+                encryptedTextString += " " + R.Abscissa.ToString() + " " + R.Ordinate.ToString();
+
+                Decrypt(encryptedTextString);
+                return encryptedTextString;
+            }
         }        
 
         public string Decrypt(string encryptedText)
-        {
+        {               
             Console.WriteLine("text to decrypt: \n{0}", encryptedText);
             var encryptedTextArray = encryptedText.Split(' ');
-            
+            var encryptedTextBi = BigInteger.Parse(encryptedTextArray[0]); 
+            //
             var rpoint = new Point(BigInteger.Parse(encryptedTextArray[1]), BigInteger.Parse(encryptedTextArray[2]));
-            //var qpoint = EllipticCurve.PointMultiplication(rpoint, RecieverSecretKey);
-            var qpoint = EllipticCurve.PointMultiplication(rpoint, MySecretKey);
-
+            var qpoint = EllipticCurve.PointMultiplication(rpoint, RecieverSecretKey);
             var x1 = Auxiliary.Math.ModularMultiplicativeInverse(qpoint.Abscissa, EllipticCurve.P);
-            
-            var txt = Auxiliary.Math.Mod(BigInteger.Parse(encryptedTextArray[0]) * x1, EllipticCurve.P);
+            //
+            if (encryptedTextBi < EllipticCurve.P)
+            {                
+                // this is ain't right in real life!
+                //var qpoint = EllipticCurve.PointMultiplication(rpoint, MySecretKey);
+                
+                var txt = Auxiliary.Math.Mod(BigInteger.Parse(encryptedTextArray[0])*x1, EllipticCurve.P);
                 Console.WriteLine("decrypted text [Mod]: \n{0}", txt);
 
-            var txtByteArray = txt.ToByteArray();
-            var decryptedText = Encoding.GetString(txtByteArray);
+                var txtByteArray = txt.ToByteArray();
+                var decryptedText = Encoding.GetString(txtByteArray);
 
-            Console.WriteLine(decryptedText);
-            return decryptedText;
+                Console.WriteLine("decrypted TEXT: {0}", decryptedText);
+                return decryptedText;
+            }
+            else
+            {               
+                var pByteArr = Encoding.GetBytes(EllipticCurve.P.ToString());
+                //var textToDecryptByteArr = encryptedTextBi.ToByteArray();
+                var textToDecryptByteArr = Encoding.GetBytes(encryptedTextArray[0]);
+
+                var pByteArrLength = pByteArr.Length;
+                var textToDecryptByteArrLength = textToDecryptByteArr.Length;
+
+                var index = 0;
+                var part = new BigInteger[textToDecryptByteArrLength / pByteArrLength + 1];
+                var partByteArr = new byte[pByteArrLength];
+
+                for (var i = 0; i < textToDecryptByteArrLength / pByteArrLength + 1; i++)
+                {
+                    for (var j = 0; j < pByteArrLength; j++)
+                    {
+                        if (j + pByteArrLength * i < textToDecryptByteArrLength)
+                            partByteArr[j] = textToDecryptByteArr[j + pByteArrLength * i];
+                        else
+                            partByteArr[j] = 0;
+                    }
+                    part[index] = new BigInteger(partByteArr);
+                    ++index;
+                }
+                var decryptedText = string.Empty;
+                for (var i = 0; i < part.Length; i++)
+                {
+                    var txt = Auxiliary.Math.Mod(part[i]*x1, EllipticCurve.P);
+                    //Console.WriteLine("decrypted text [Mod]: \n{0}", txt);
+                    var txtByteArray = txt.ToByteArray();
+                    decryptedText += Encoding.GetString(txtByteArray);                    
+                }
+
+                Console.WriteLine("decrypted TEXT: {0}", decryptedText);
+                return decryptedText;
+            }          
         }
 
         private void GenerateKeys()
