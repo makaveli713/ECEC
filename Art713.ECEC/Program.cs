@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Numerics;
+using Art713.ECEC.Cryptography;
 
 namespace Art713.ECEC
 {
@@ -9,7 +10,8 @@ namespace Art713.ECEC
         {
             Console.WriteLine("ECEC");
 
-            var obj = new Encrypt.Encrypt("Artem Trubitsyn");
+            var obj = new Encryption();
+            Console.WriteLine(obj.Encrypt("Artem Trubitsyn Artem Trubitsyn Artem Trubitsyn Artem Trubitsyn Artem Trubitsyn Artem Trubitsyn Artem Trubitsyn"));
             //var obj = new Encrypt.Encrypt(713030391);
 
             //var obj = new Encrypt.Encrypt("Trubitsyn Artem");

@@ -83,6 +83,26 @@ namespace Art713.ECEC.Cryptography
                     Console.WriteLine("encrypted text [Mod]: \n{0}", encryptedTextBigInteger);
                 return encryptedTextBigInteger.ToString() + " " + R.Abscissa.ToString() + " " + R.Ordinate.ToString();
             }
+
+            var pByteArr = Encoding.GetBytes(EllipticCurve.P.ToString());
+            var textByteArr = Encoding.GetBytes(textToEncryptBigInteger.ToString());// same as textToEncryptBytesArray ?
+
+            var pByteArrLength = pByteArr.Length;
+            var textByteArrLength = textByteArr.Length;
+            
+            var index = 0;
+            var part = new BigInteger[textByteArrLength / pByteArrLength + 1];
+            var partByteArr = new byte[pByteArrLength];
+            for (var i = 0; i < textByteArrLength / pByteArrLength + 1; i++)
+            {
+                for (var j = 0; j < pByteArrLength; j++)
+                {
+                    partByteArr[j] = textByteArr[j + pByteArrLength * i];
+                }
+                part[index] = new BigInteger(partByteArr[i]);
+                ++index;
+            }
+
                 // Console.WriteLine("text length is more than modulus!");
                 // do smth! 
             return null;
