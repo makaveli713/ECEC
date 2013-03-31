@@ -103,9 +103,12 @@ namespace Art713.ECEC.Cryptography
                         s = textToEncryptBytesArray[i].ToString();
                     }
                 }
-                var e = part.Select(t => t*P.Abscissa).Select(encryptedTextBigInteger => Auxiliary.Math.Mod(encryptedTextBigInteger, EllipticCurve.P)).Aggregate(string.Empty, (current, encryptedTextBigInteger) => current + encryptedTextBigInteger.ToString());
+                var e = part
+                    .Select(t => t*P.Abscissa)
+                    .Select(encryptedTextBigInteger => Auxiliary.Math.Mod(encryptedTextBigInteger, EllipticCurve.P))
+                    .Aggregate(string.Empty, (current, encryptedTextBigInteger) => current + encryptedTextBigInteger.ToString() + "+");
                 e += " " + R.Abscissa.ToString() + " " + R.Ordinate.ToString();
-
+                Decrypt(e);
                 return e;
 
 
@@ -161,12 +164,13 @@ namespace Art713.ECEC.Cryptography
         {               
             Console.WriteLine("text to decrypt: \n{0}", encryptedText);
             var encryptedTextArray = encryptedText.Split(' ');
-            var encryptedTextBi = BigInteger.Parse(encryptedTextArray[0]); 
+            //var encryptedTextBi = BigInteger.Parse(encryptedTextArray[0]); 
             //
             var rpoint = new Point(BigInteger.Parse(encryptedTextArray[1]), BigInteger.Parse(encryptedTextArray[2]));
             var qpoint = EllipticCurve.PointMultiplication(rpoint, RecieverSecretKey);
             var x1 = Auxiliary.Math.ModularMultiplicativeInverse(qpoint.Abscissa, EllipticCurve.P);
             //
+            /*
             if (encryptedTextBi < EllipticCurve.P)
             {                
                 // this is ain't right in real life! //var qpoint = EllipticCurve.PointMultiplication(rpoint, MySecretKey);
@@ -181,9 +185,31 @@ namespace Art713.ECEC.Cryptography
                 return decryptedText;
             }
             else
-            {   
+            {
+             */
+                var eArr = encryptedTextArray[0].Split('+');
+                var eArrBi = new BigInteger[eArr.Length-1];               
+                for (var index = 0; index < eArrBi.Length; index++)                
+                    eArrBi[index] = BigInteger.Parse(eArr[index]);
+                var text = string.Empty;
+                var s = string.Empty;
+                for (var i = 0; i < eArrBi.Length; i++)
+                {
+                    var txt = Auxiliary.Math.Mod(eArrBi[i]*x1, EllipticCurve.P);
+                    s += txt.ToString();                    
+                }
+            var ss =new byte[s.Length/2];
+            for (int i = 0; i < s.Length/2; i++)
+            {
+                ss[i] = Byte.Parse(s.Substring(i*2, 2));
+            }
 
-                
+
+
+                text = Encoding.GetString(ss);
+
+                return text;
+                /*
                 var pByteArr = Encoding.GetBytes(EllipticCurve.P.ToString());
                 //var textToDecryptByteArr = encryptedTextBi.ToByteArray();
                 var textToDecryptByteArr = Encoding.GetBytes(encryptedTextArray[0]);
@@ -218,7 +244,10 @@ namespace Art713.ECEC.Cryptography
 
                 Console.WriteLine("decrypted TEXT: {0}", decryptedText);
                 return decryptedText;
-            }                 
+                 */
+            //}
+
+            //return null;
         }
 
         private void GenerateKeys()
