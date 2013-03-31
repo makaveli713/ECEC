@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using System.Numerics;
+using System.Text;
 using Art713.ECEC.Cryptography;
 
 namespace Art713.ECEC
@@ -9,9 +11,31 @@ namespace Art713.ECEC
         static void Main()
         {
             Console.WriteLine("ECEC");
+            /*
+            var encoding = new UTF8Encoding();
+            var experiment = new BigInteger(1234567890);
+            var experimentStr = experiment.ToString();
+            var experimentBytes = encoding.GetBytes(experimentStr);
+            var smth = experimentBytes.Aggregate(string.Empty, (current, b) => current + b.ToString());
+            var bi = BigInteger.Parse()
+            var tempArr = new byte[5];            
+                tempArr[0] = experimentBytes[0];
+                tempArr[1] = experimentBytes[1];
+                tempArr[2] = experimentBytes[2];
+                tempArr[3] = experimentBytes[3];
+                tempArr[4] = experimentBytes[4];
+            var s1 = encoding.GetString(tempArr);
 
+                tempArr[0] = experimentBytes[2];
+                tempArr[1] = experimentBytes[3];
+            var temp2 = new BigInteger(tempArr);
+            var s2 = temp2.ToString();
+              */
+                
             var obj = new Encryption();
-            Console.WriteLine(obj.Encrypt("Artem Trubitsyn Artem Trubitsyn Artem Trubitsyn Artem Trubitsyn Artem Trubitsyn Artem Trubitsyn Artem Trubitsyn"));
+            //Console.WriteLine(obj.Encrypt("Artem Trubitsyn Artem Trubitsyn Artem Trubitsyn Artem Trubitsyn Artem Trubitsyn Artem Trubitsyn Artem Trubitsyn"));
+            obj.Encrypt("Artem Trubitsyn Artem Trubitsyn Artem Trubitsyn Artem Trubitsyn Artem Trubitsyn Artem Trubitsyn Artem Trubitsyn");
+//            obj.Encrypt("Artem Trubitsyn");
             //var obj = new Encrypt.Encrypt(713030391);
 
             //var obj = new Encrypt.Encrypt("Trubitsyn Artem");
