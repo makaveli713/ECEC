@@ -87,7 +87,9 @@ namespace Art713.ECEC.Cryptography
         /// <returns>Encrypted text and R point as a string</returns>
         public string Encrypt(string textToEncrypt)
         {
+            Console.ForegroundColor = ConsoleColor.Green;            
             Console.WriteLine(textToEncrypt);
+            Console.ResetColor();
 
             // только для тестирования!!!
             const int a = -3;
@@ -117,6 +119,8 @@ namespace Art713.ECEC.Cryptography
 
             var textToEncryptBytesArray = Encoding.GetBytes(textToEncrypt);
             var textToEncryptBigInteger = new BigInteger(textToEncryptBytesArray);
+            if (textToEncryptBigInteger < 0) textToEncryptBigInteger *= -1;
+                //textToEncryptBigInteger = Auxiliary.Math.Mod(textToEncryptBigInteger, EllipticCurve.P);
             Console.WriteLine("text [BigInteger]: \n{0}", textToEncryptBigInteger);
 
             if (textToEncryptBigInteger < EllipticCurve.P)
@@ -146,9 +150,13 @@ namespace Art713.ECEC.Cryptography
         {
             Console.WriteLine("text to decrypt: \n{0}", encryptedText);
             var encryptedTextStringArray = encryptedText.Split(' ');
-            var encryptedTextBigInteger = EllipticCurve.P + 1;
-            if (encryptedTextStringArray.Contains("+")) 
-                encryptedTextBigInteger = BigInteger.Parse(encryptedTextStringArray[0]);
+
+            BigInteger encryptedTextBigInteger;
+            var parsed = BigInteger.TryParse(encryptedTextStringArray[0], out encryptedTextBigInteger);
+            
+            //var encryptedTextBigInteger = EllipticCurve.P + 1;
+            //if (encryptedTextStringArray.Contains("+")) 
+                //encryptedTextBigInteger = BigInteger.Parse(encryptedTextStringArray[0]);
             
             //
             var rpoint = new Point(BigInteger.Parse(encryptedTextStringArray[1]), BigInteger.Parse(encryptedTextStringArray[2]));
@@ -156,7 +164,8 @@ namespace Art713.ECEC.Cryptography
             var x1 = Auxiliary.Math.ModularMultiplicativeInverse(qpoint.Abscissa, EllipticCurve.P);
             //
 
-            if (encryptedTextBigInteger < EllipticCurve.P)
+            //if (encryptedTextBigInteger < EllipticCurve.P)
+            if (parsed)                                       
             {
                 // this is ain't right in real life! var qpoint = EllipticCurve.PointMultiplication(rpoint, MySecretKey);
 
@@ -165,7 +174,7 @@ namespace Art713.ECEC.Cryptography
 
                 var txtByteArray = txt.ToByteArray();
                 var decryptedText = Encoding.GetString(txtByteArray);
-
+                
                 Console.WriteLine("decrypted TEXT: {0}", decryptedText);
                 return decryptedText;
             }
@@ -175,6 +184,7 @@ namespace Art713.ECEC.Cryptography
                 .Select(part => BigInteger.Parse(part)*x1)
                 .Select(part => Auxiliary.Math.Mod(part,EllipticCurve.P))
                 .Aggregate(string.Empty, (current, part) => current + Encoding.GetString(part.ToByteArray()));
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("Decrypted text: {0}",s);
             return s;
         }
