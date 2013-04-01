@@ -23,11 +23,10 @@ namespace Art713.ECEC.Cryptography
         /// <summary>
         /// When a numeric value of the text (which user want to encrypt)
         /// is greater than modulus of the given elliptic curve
-        /// text divides on parts and PartList contains every part of this text.
-        /// </summary>
-        public List<string> PartsList = new List<string>();
-        /// <summary>
-        /// the same as above!
+        /// text divides on parts and PartListWithSign contains 
+        /// every part of this text with boolean value, 
+        /// which show if the BigInteger representation of the part 
+        /// is less than zero
         /// </summary>
         public Dictionary<string, bool> PartListWithSign = new Dictionary<string, bool>();
         /// <summary>
@@ -55,7 +54,13 @@ namespace Art713.ECEC.Cryptography
         /// UTF-8 encoding to encode data
         /// </summary>
         private static readonly UTF8Encoding Encoding = new UTF8Encoding();
-
+        /// <summary>
+        /// This method allow to divide text
+        /// in the case if BigInteger representation
+        /// of this text is greater than the modulus
+        /// of the given elliptic curve.
+        /// </summary>
+        /// <param name="text">Text to encrypt.</param>
         public void GetParts(string text)
         {
             var textLength = text.Length;
@@ -93,22 +98,14 @@ namespace Art713.ECEC.Cryptography
                     GetParts(part2);
                 else
                 {
-                    if (part2BigInteger > EllipticCurve.P)
-                    {
-                        GetParts(part1);
-                    }
+                    if (part2BigInteger > EllipticCurve.P)                    
+                        GetParts(part1);                    
                 }
             }
-            if (part1BigInteger < EllipticCurve.P)
-            {
-                PartsList.Add(part1);
-                PartListWithSign.Add(part1,f1);
-            }
-            if (part2BigInteger < EllipticCurve.P)
-            {
-                PartsList.Add(part2);
-                PartListWithSign.Add(part2,f2);
-            }
+            if (part1BigInteger < EllipticCurve.P)           
+                PartListWithSign.Add(part1,f1);            
+            if (part2BigInteger < EllipticCurve.P)            
+                PartListWithSign.Add(part2,f2);            
         }
         /// <summary>
         /// method: Allow to encrypt text data.
@@ -159,27 +156,20 @@ namespace Art713.ECEC.Cryptography
             if (textToEncryptBigInteger < EllipticCurve.P)
             {
                 var encryptedTextBigInteger = textToEncryptBigInteger * pPoint.Abscissa;
-                Console.WriteLine("encrypted text: \n{0}", encryptedTextBigInteger);
                 encryptedTextBigInteger = Auxiliary.Math.Mod(encryptedTextBigInteger, EllipticCurve.P);
                 Console.WriteLine("encrypted text [Mod]: \n{0}", encryptedTextBigInteger);
                 Decrypt(encryptedTextBigInteger.ToString() + " " + rPoint.Abscissa.ToString() + " " + rPoint.Ordinate.ToString());
                 return encryptedTextBigInteger.ToString() + " " + rPoint.Abscissa.ToString() + " " + rPoint.Ordinate.ToString();
             }
+
             GetParts(textToEncrypt);
+            
             var s = PartListWithSign
-                //.Select(part => Encoding.GetBytes(part.Key))               
                 .Select(part => (part.Value)?-1*(new BigInteger(Encoding.GetBytes(part.Key))): new BigInteger(Encoding.GetBytes(part.Key)))
                 .Select(part => part * pPoint.Abscissa)
                 .Select(part => Auxiliary.Math.Mod(part, EllipticCurve.P))
                 .Aggregate(string.Empty, (current, part) => current + part.ToString() + "+");
-            /*
-            var s = PartsList
-                .Select(part => Encoding.GetBytes(part))
-                .Select(part => new BigInteger(part))
-                .Select(part => part * pPoint.Abscissa)
-                .Select(part => Auxiliary.Math.Mod(part, EllipticCurve.P))
-                .Aggregate(string.Empty, (current, part) => current + part.ToString() + "+");
-            */
+
             s = s.Remove(s.Length - 1, 1);
             s += " " + rPoint.Abscissa.ToString() + " " + rPoint.Ordinate.ToString();
             Decrypt(s);
