@@ -158,7 +158,6 @@ namespace Art713.ECEC.Cryptography
                 var encryptedTextBigInteger = textToEncryptBigInteger * pPoint.Abscissa;
                 encryptedTextBigInteger = Auxiliary.Math.Mod(encryptedTextBigInteger, EllipticCurve.P);
                 Console.WriteLine("encrypted text [Mod]: \n{0}", encryptedTextBigInteger);
-                //Decrypt(encryptedTextBigInteger.ToString() + " " + rPoint.Abscissa.ToString() + " " + rPoint.Ordinate.ToString());
                 var e = (NegativeSignFlag)
                            ? ("1-" + encryptedTextBigInteger + " " + rPoint.Abscissa + " " + rPoint.Ordinate)
                            : ("0-" + encryptedTextBigInteger + " " + rPoint.Abscissa + " " + rPoint.Ordinate);
@@ -167,9 +166,9 @@ namespace Art713.ECEC.Cryptography
             }
 
             GetParts(textToEncrypt);
-            var s = PartListWithSign.Select(sign=>sign.Value).Aggregate(string.Empty,
-                                               (current, sign) => sign ? current += "1" : current += "0");
-            s += "-";
+            var s = PartListWithSign
+                .Select(sign => sign.Value)
+                .Aggregate(string.Empty,(current, sign) => sign ? current += "1" : current += "0") + "-";
             s+= PartListWithSign
                 .Select(part => (part.Value)?-1*(new BigInteger(Encoding.GetBytes(part.Key))): new BigInteger(Encoding.GetBytes(part.Key)))
                 .Select(part => part * pPoint.Abscissa)
@@ -177,7 +176,7 @@ namespace Art713.ECEC.Cryptography
                 .Aggregate(string.Empty, (current, part) => current + part.ToString() + "+");
 
             s = s.Remove(s.Length - 1, 1);
-            s += " " + rPoint.Abscissa.ToString() + " " + rPoint.Ordinate.ToString();
+            s += " " + rPoint.Abscissa + " " + rPoint.Ordinate;
             Decrypt(s);
             return s;
         }
@@ -186,7 +185,6 @@ namespace Art713.ECEC.Cryptography
         {
             Console.WriteLine("text to decrypt: \n{0}", encryptedText);
             var signes = encryptedText.Split('-');
-            //var encryptedTextStringArray = encryptedText.Split(' ');
             var encryptedTextStringArray = signes[1].Split(' ');
 
             BigInteger encryptedTextBigInteger;
@@ -203,8 +201,6 @@ namespace Art713.ECEC.Cryptography
                 var txt = Auxiliary.Math.Mod(encryptedTextBigInteger * x1, EllipticCurve.P);
                 Console.WriteLine("decrypted text [Mod]: \n{0}", txt);
 
-                //if (NegativeSignFlag)
-                  //  txt *= -1;
                 if (signes[0] == "1")
                     txt *= -1;                
 
@@ -214,22 +210,16 @@ namespace Art713.ECEC.Cryptography
                 Console.WriteLine("decrypted TEXT: {0}", decryptedText);
                 return decryptedText;
             }
-            var signesArr = signes[0].ToArray();
+            var signesCharArr = signes[0].ToArray();
             var parts = encryptedTextStringArray[0].Split('+');
             var s = string.Empty;
             for (var i = 0; i < parts.Length; i++)
             {
                 var part = Auxiliary.Math.Mod(BigInteger.Parse(parts[i])*x1, EllipticCurve.P);
-                if (signesArr[i]=='1')
+                if (signesCharArr[i]=='1')
                     part *= -1;
                 s += Encoding.GetString(part.ToByteArray());
             }  
-            /*
-            var s = parts
-                .Select(part => BigInteger.Parse(part) * x1)
-                .Select(part => Auxiliary.Math.Mod(part, EllipticCurve.P))
-                .Aggregate(string.Empty, (current, part) => current + Encoding.GetString(part.ToByteArray()));
-            */
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("Decrypted text: {0}", s);
             return s;

@@ -35,7 +35,11 @@ namespace Art713.ECEC
             var obj = new Encryption();
             //Console.WriteLine(obj.Encrypt("Artem Trubitsyn Artem Trubitsyn Artem Trubitsyn Artem Trubitsyn Artem Trubitsyn Artem Trubitsyn Artem Trubitsyn"));
             obj.Encrypt("Artem Trubitsyn Artem Trubitsyn Artem Trubitsyn Artem Trubitsyn Artem Trubitsyn Artem Trubitsyn Artem Trubitsyn");
-//            obj.Encrypt("Artem Trubitsyn");
+            obj.Encrypt("й");
+            obj.Encrypt("Артём Трубицын");
+            obj.Encrypt("абвгдеёжзийклмнопрстуфхцчшщъыьэюя АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ 1234567890 !№;%:?*()_+=-.,\\/");
+            obj = new Encryption();
+            obj.Encrypt("Artem Trubitsyn");
             //var obj = new Encrypt.Encrypt(713030391);
 
             //var obj = new Encrypt.Encrypt("Trubitsyn Artem");
