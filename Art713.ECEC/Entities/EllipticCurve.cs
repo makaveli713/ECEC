@@ -83,6 +83,12 @@ namespace Art713.ECEC.Entities
 
         public Point PointAddition(Point fPoint, Point sPoint)
         {
+            if(fPoint.Abscissa == sPoint.Abscissa && fPoint.Ordinate == -sPoint.Ordinate )
+                return new Point(0,0);
+            if (fPoint.Abscissa == 0 && fPoint.Ordinate == 0)
+                return sPoint;
+            if (sPoint.Abscissa == 0 && sPoint.Ordinate == 0)
+                return fPoint;
             var sumPoint = new Point();
 
             var k = Auxiliary.Math.Mod((sPoint.Ordinate - fPoint.Ordinate), P) * Auxiliary.Math.ModularMultiplicativeInverse(Auxiliary.Math.Mod((sPoint.Abscissa - fPoint.Abscissa), P), P);
