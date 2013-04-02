@@ -121,10 +121,6 @@ namespace Art713.ECEC.Entities
 
         public Point PointMultiplication(Point point, BigInteger n)
         {
-            if (n == 0)            
-                return new Point(0, 0);
-            if (n == Q)            
-                return new Point(0, 0);            
             var newPoint = point;
             var nBits = Auxiliary.Math.GetBits(n);
             for (var i = 1; i < nBits.Length; i++)
