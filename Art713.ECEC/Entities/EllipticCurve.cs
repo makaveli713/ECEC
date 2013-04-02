@@ -126,6 +126,12 @@ namespace Art713.ECEC.Entities
             if (n == Q)            
                 return new Point(0, 0);            
             var newPoint = point;
+            var isnSignIsMinus = false;
+            if (n < 0)
+            {
+                isnSignIsMinus = true;
+                n *= -1;
+            }
             var nBits = Auxiliary.Math.GetBits(n);
             for (var i = 1; i < nBits.Length; i++)
             {
@@ -134,7 +140,7 @@ namespace Art713.ECEC.Entities
                     newPoint = PointAddition(newPoint, point);
             }
             newPoint.Abscissa = Auxiliary.Math.Mod(newPoint.Abscissa, P);
-            newPoint.Ordinate = Auxiliary.Math.Mod(newPoint.Ordinate, P);
+            newPoint.Ordinate = (isnSignIsMinus) ? -Auxiliary.Math.Mod(newPoint.Ordinate, P) : Auxiliary.Math.Mod(newPoint.Ordinate, P);
             return newPoint;
         }
 
