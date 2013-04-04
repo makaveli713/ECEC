@@ -13,7 +13,7 @@ namespace Art713.ECEC.Cryptography
     /// Encryption class allow to encrypt & decrypt data 
     /// using El-Gamal encryption on elliptic curve
     /// </summary>
-    class Encryption : IEncryption
+    public class Encryption : IEncryption
     {
         /// <summary>
         /// When a numeric value of the text (which user want to encrypt)
