@@ -5,10 +5,10 @@ namespace SecureMessagingService
     [ServiceContract(CallbackContract = typeof(ISecureMessagingServiceCallback))]
     public interface ISecureMessagingService
     {
-        [OperationContract(IsOneWay = true)]
+        [OperationContract]
         string Encrypt(string textToEncrypt);
 
-        [OperationContract(IsOneWay = true)]
+        [OperationContract]
         string Decrypt(string textToDecrypt);
     }
 }

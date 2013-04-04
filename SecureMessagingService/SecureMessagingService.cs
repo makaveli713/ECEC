@@ -1,7 +1,8 @@
-﻿using System;
+﻿using System.ServiceModel;
 
 namespace SecureMessagingService
 {
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerSession)]
     public class SecureMessagingService : ISecureMessagingService
     {
         public string Encrypt(string textToEncrypt)

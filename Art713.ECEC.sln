@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Art713.ECEC.PrimalityTests"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Art713.ECEC.Tests", "Art713.ECEC.TestOfPrimalityTest\Art713.ECEC.Tests.csproj", "{E99BBFE4-FDA8-4DBC-B75D-F0BA97D11A67}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecureMessagingService", "SecureMessagingService\SecureMessagingService.csproj", "{15B3E0D2-6217-493A-A690-158C497F5318}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Art713.ECEC.SecureMessagingService", "SecureMessagingService\Art713.ECEC.SecureMessagingService.csproj", "{15B3E0D2-6217-493A-A690-158C497F5318}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -12,4 +12,3 @@ C:\Users\Art\Documents\Visual Studio 2012\Projects\Repository\Art713.ECEC\Art713
 C:\Users\Art\Documents\Visual Studio 2012\Projects\Repository\Art713.ECEC\Art713.ECEC\bin\Debug\Art713.ECEC.pdb
 C:\Users\Art\Documents\Visual Studio 2012\Projects\Repository\Art713.ECEC\Art713.ECEC\bin\Debug\nunit.framework.dll
 C:\Users\Art\Documents\Visual Studio 2012\Projects\Repository\Art713.ECEC\Art713.ECEC\bin\Debug\nunit.framework.xml
-C:\Users\Art\Documents\Visual Studio 2012\Projects\Repository\Art713.ECEC\Art713.ECEC\obj\Debug\Art713.ECEC.csprojResolveAssemblyReference.cache
