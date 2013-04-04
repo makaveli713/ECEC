@@ -44,10 +44,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Auxiliary\Math.cs" />
+    <Compile Include="Cryptography\Encryption.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Entities\EllipticCurve.cs" />
     <Compile Include="Entities\Point.cs" />
+    <Compile Include="Infrastructure\IEncryption.cs" />
     <Compile Include="Program.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
