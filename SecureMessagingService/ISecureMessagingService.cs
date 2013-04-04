@@ -1,15 +1,14 @@
-﻿using System.Runtime.Serialization;
-using System.ServiceModel;
+﻿using System.ServiceModel;
 
 namespace SecureMessagingService
 {
     [ServiceContract(CallbackContract = typeof(ISecureMessagingServiceCallback))]
-    public interface IService1
+    public interface ISecureMessagingService
     {
-        [OperationContract]
-        string GetData(int value);
+        [OperationContract(IsOneWay = true)]
+        string Encrypt(string textToEncrypt);
 
-        [OperationContract]
-
+        [OperationContract(IsOneWay = true)]
+        string Decrypt(string textToDecrypt);
     }
 }
