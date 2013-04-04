@@ -3,6 +3,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using Art713.ECEC.Cryptography;
+using Art713.ECEC.Entities;
 
 namespace Art713.ECEC
 {
@@ -31,7 +32,13 @@ namespace Art713.ECEC
             var temp2 = new BigInteger(tempArr);
             var s2 = temp2.ToString();
               */
-                
+
+            //var p1 = new Point(3, 4);
+            //var p2 = new Point(0, 0);
+            //var ec = new EllipticCurve(2,6,7);
+            //ec.Q = 7;
+            //var p3 = ec.PointMultiplication(p1, 3);
+
             var obj = new Encryption();
             //Console.WriteLine(obj.Encrypt("Artem Trubitsyn Artem Trubitsyn Artem Trubitsyn Artem Trubitsyn Artem Trubitsyn Artem Trubitsyn Artem Trubitsyn"));
             obj.Encrypt("Artem Trubitsyn Artem Trubitsyn Artem Trubitsyn Artem Trubitsyn Artem Trubitsyn Artem Trubitsyn Artem Trubitsyn");
