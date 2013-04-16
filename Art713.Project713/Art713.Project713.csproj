@@ -116,6 +116,7 @@
       <SubType>Designer</SubType>
     </AppxManifest>
     <None Include="Art713.Project713_TemporaryKey.pfx" />
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Logo.png" />

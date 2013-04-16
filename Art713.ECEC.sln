@@ -2,10 +2,19 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Art713.ECEC", "Art713.ECEC\Art713.ECEC.csproj", "{8806E091-283D-4001-8ED5-5368DCB7B786}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A3456667-1BE4-4201-B277-8F549501BDF4} = {A3456667-1BE4-4201-B277-8F549501BDF4}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Art713.ECEC.PrimalityTests", "Art713.ECEC.PrimalityTest\Art713.ECEC.PrimalityTests.csproj", "{ACD91D5E-0F5A-47F0-906F-210A05CC168B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A3456667-1BE4-4201-B277-8F549501BDF4} = {A3456667-1BE4-4201-B277-8F549501BDF4}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Art713.ECEC.Tests", "Art713.ECEC.TestOfPrimalityTest\Art713.ECEC.Tests.csproj", "{E99BBFE4-FDA8-4DBC-B75D-F0BA97D11A67}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A3456667-1BE4-4201-B277-8F549501BDF4} = {A3456667-1BE4-4201-B277-8F549501BDF4}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Art713.Project713", "Art713.Project713\Art713.Project713.csproj", "{A3456667-1BE4-4201-B277-8F549501BDF4}"
 EndProject
