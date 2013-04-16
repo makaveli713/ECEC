@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Auxiliary\Math.cs" />
+    <Compile Include="Cryptography\Encryption.cs" />
     <Compile Include="Entities\EllipticCurve.cs" />
     <Compile Include="Entities\Point.cs" />
     <Compile Include="Program.cs" />

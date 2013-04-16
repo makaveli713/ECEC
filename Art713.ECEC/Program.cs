@@ -31,7 +31,8 @@ namespace Art713.ECEC
             var temp2 = new BigInteger(tempArr);
             var s2 = temp2.ToString();
               */
-                
+            
+            /*
             var obj = new Encryption();
             //Console.WriteLine(obj.Encrypt("Artem Trubitsyn Artem Trubitsyn Artem Trubitsyn Artem Trubitsyn Artem Trubitsyn Artem Trubitsyn Artem Trubitsyn"));
             obj.Encrypt("Artem Trubitsyn Artem Trubitsyn Artem Trubitsyn Artem Trubitsyn Artem Trubitsyn Artem Trubitsyn Artem Trubitsyn");
@@ -41,6 +42,7 @@ namespace Art713.ECEC
             obj = new Encryption();
             obj.Encrypt("Artem Trubitsyn");
             //var obj = new Encrypt.Encrypt(713030391);
+             * */
 
             //var obj = new Encrypt.Encrypt("Trubitsyn Artem");
 

@@ -8,6 +8,11 @@
     mc:Ignorable="d">
 
     <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
+        <TextBox Name="TextToEncrypt" HorizontalAlignment="Left" Margin="80,83,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="637" Width="560"/>
+        <Button Content="Encrypt" Name="EncryptBtn" Click="EncryptBtn_OnClick" Margin="640,83,0,610" Height="75" Width="85"/>
+        <TextBlock Name="EncryptedTextBlock" HorizontalAlignment="Left" Margin="725,83,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="232" Width="474"/>
+        <TextBlock Name="DecryptedTextBlock" HorizontalAlignment="Left" Margin="725,400,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="320" Width="474"/>
+        <Button Content="Decrypt" Name="DecryptBtn" Click="DecryptBtn_OnClick" HorizontalAlignment="Left" Margin="640,400,0,0" VerticalAlignment="Top" Height="85" Width="85"/>
 
     </Grid>
 </Page>
