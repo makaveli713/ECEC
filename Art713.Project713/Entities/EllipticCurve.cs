@@ -144,13 +144,18 @@ namespace Art713.Project713.Entities
             return newPoint;
         }
 
-        // constructors:
+        /// <summary>
+        /// constructor: Create a new instance of EllipticCurve class.
+        /// </summary>
+        /// <param name="a">parameter: a.</param>
+        /// <param name="b">parameter: b.</param>
+        /// <param name="p">parameter: p - modulus of the elliptic curve.</param>
         public EllipticCurve(BigInteger a, BigInteger b, BigInteger p)
         {
             try
             {
                 if (Auxiliary.Math.Mod(4 * a * a * a + 27 * b * b, p) == 0)
-                    throw new Exception("singular curve!");
+                    throw new Exception("Singular curve!");
                 A = a;
                 B = b;
                 P = p;

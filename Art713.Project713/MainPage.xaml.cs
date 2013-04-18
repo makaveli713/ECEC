@@ -1,5 +1,7 @@
 ﻿using Art713.Project713.Cryptography;
+using Windows.UI;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 // Шаблон элемента пустой страницы задокументирован по адресу http://go.microsoft.com/fwlink/?LinkId=234238
@@ -36,6 +38,10 @@ namespace Art713.Project713
         private void DecryptBtn_OnClick(object sender, RoutedEventArgs e)
         {
             DecryptedTextBlock.Text = EncryptionObj.Decrypt(EncryptedTextBlock.Text);
+            if (DecryptedTextBlock.Text == TextToEncrypt.Text)
+                DecryptBtn.Foreground = new SolidColorBrush(Colors.Green);
+            else 
+                DecryptBtn.Foreground = new SolidColorBrush(Colors.Red);
         }
     }
 }
