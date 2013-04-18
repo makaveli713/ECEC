@@ -63,14 +63,9 @@ namespace Art713.Project713.Cryptography
         /// </summary>
         /// <param name="text">Text to encrypt.</param>
         public void GetParts(string text)
-        {
-            //var specialSymbolsCount = 0;
-
+        {            
             var textCharArr = text.ToCharArray();
             var textLength = textCharArr.Length;
-
-            //var textLength = text.Length;
-            //textLength += specialSymbolsCount;
 
             if (textLength % 2 != 0) ++textLength;
 
@@ -102,31 +97,25 @@ namespace Art713.Project713.Cryptography
             }
             else
             {
-                if (part2BigInteger > EllipticCurve.P)
+                if (part1BigInteger < EllipticCurve.P && part2BigInteger < EllipticCurve.P)
                 {
                     PartListWithSign.Add(part1, f1);
-                    GetParts(part2);
+                    PartListWithSign.Add(part2, f2);
                 }
                 else
                 {
-                    if (part1BigInteger > EllipticCurve.P)
-                    {
-                        PartListWithSign.Add(part2, f2);
+                    if (part1BigInteger > EllipticCurve.P && part2BigInteger < EllipticCurve.P)
+                    {                        
                         GetParts(part1);
+                        PartListWithSign.Add(part2, f2);
                     }
-                    else
+                    if (part2BigInteger > EllipticCurve.P && part1BigInteger < EllipticCurve.P)
                     {
-                        PartListWithSign.Add(part1,f1);
-                        PartListWithSign.Add(part2,f2);
-                    }
-                }
+                        PartListWithSign.Add(part1, f1);
+                        GetParts(part2);                        
+                    }                    
+                }               
             }
-            /*
-            if (part1BigInteger < EllipticCurve.P)
-                PartListWithSign.Add(part1, f1);
-            if (part2BigInteger < EllipticCurve.P)
-                PartListWithSign.Add(part2, f2);
-             */
         }
         /// <summary>
         /// method: Allow to encrypt text data.

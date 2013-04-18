@@ -38,10 +38,7 @@ namespace Art713.Project713
         private void DecryptBtn_OnClick(object sender, RoutedEventArgs e)
         {
             DecryptedTextBlock.Text = EncryptionObj.Decrypt(EncryptedTextBlock.Text);
-            if (DecryptedTextBlock.Text == TextToEncrypt.Text)
-                DecryptBtn.Foreground = new SolidColorBrush(Colors.Green);
-            else 
-                DecryptBtn.Foreground = new SolidColorBrush(Colors.Red);
+            DecryptBtn.Foreground = DecryptedTextBlock.Text == TextToEncrypt.Text ? new SolidColorBrush(Colors.Green) : new SolidColorBrush(Colors.Red);
         }
     }
 }
