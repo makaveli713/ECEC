@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
-using System.Text.RegularExpressions;
 using Windows.Security.Cryptography;
 using System.Text;
 using Art713.Project713.Entities;
