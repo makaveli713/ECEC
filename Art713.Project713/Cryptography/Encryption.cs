@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using Windows.Security.Cryptography;
 using System.Text;
 using Art713.Project713.Entities;
+using Windows.Storage;
 using Windows.Storage.Streams;
 
 namespace Art713.Project713.Cryptography
@@ -121,7 +123,7 @@ namespace Art713.Project713.Cryptography
         /// </summary>
         /// <param name="textToEncrypt">Text to encrypt.</param>
         /// <returns>Encrypted text and R point as a string</returns>
-        public string Encrypt(string textToEncrypt)
+        public async void Encrypt(string textToEncrypt)
         {
             //Console.ForegroundColor = ConsoleColor.Green;
             //Console.WriteLine(textToEncrypt);
@@ -171,7 +173,7 @@ namespace Art713.Project713.Cryptography
                            ? ("1-" + encryptedTextBigInteger + " " + rPoint.Abscissa + " " + rPoint.Ordinate)
                            : ("0-" + encryptedTextBigInteger + " " + rPoint.Abscissa + " " + rPoint.Ordinate);
                 //Decrypt(e);
-                return e;
+                //return e;
             }
 
             GetParts(textToEncrypt);
@@ -187,7 +189,17 @@ namespace Art713.Project713.Cryptography
             s = s.Remove(s.Length - 1, 1);
             s += " " + rPoint.Abscissa + " " + rPoint.Ordinate;
             //Decrypt(s);
-            return s;
+            
+            
+            //DataWriter dw = new DataWriter()           
+            //dw.WriteBytes();
+
+            IStorageFile file = new StorageFile();
+            StorageFolder localFolder = KnownFolders.DocumentsLibrary;
+            file  = await localFolder.CreateFileAsync("dataFile.txt", CreationCollisionOption.OpenIfExists);
+            //FileIO.WriteBytesAsync
+
+            //return s;
         }
 
         public string Decrypt(string encryptedText)
