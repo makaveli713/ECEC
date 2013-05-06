@@ -123,7 +123,7 @@ namespace Art713.Project713.Cryptography
         /// </summary>
         /// <param name="textToEncrypt">Text to encrypt.</param>
         /// <returns>Encrypted text and R point as a string</returns>
-        public async void Encrypt(string textToEncrypt)
+        public string Encrypt(string textToEncrypt)
         {
             //Console.ForegroundColor = ConsoleColor.Green;
             //Console.WriteLine(textToEncrypt);
@@ -173,7 +173,7 @@ namespace Art713.Project713.Cryptography
                            ? ("1-" + encryptedTextBigInteger + " " + rPoint.Abscissa + " " + rPoint.Ordinate)
                            : ("0-" + encryptedTextBigInteger + " " + rPoint.Abscissa + " " + rPoint.Ordinate);
                 //Decrypt(e);
-                //return e;
+                return e;
             }
 
             GetParts(textToEncrypt);
@@ -193,13 +193,12 @@ namespace Art713.Project713.Cryptography
             
             //DataWriter dw = new DataWriter()           
             //dw.WriteBytes();
-
-            IStorageFile file = new StorageFile();
-            StorageFolder localFolder = KnownFolders.DocumentsLibrary;
-            file  = await localFolder.CreateFileAsync("dataFile.txt", CreationCollisionOption.OpenIfExists);
+            //IStorageFile file = new StorageFile();
+            //StorageFolder localFolder = KnownFolders.DocumentsLibrary;
+            //file  = await localFolder.CreateFileAsync("dataFile.txt", CreationCollisionOption.OpenIfExists);
             //FileIO.WriteBytesAsync
 
-            //return s;
+            return s;
         }
 
         public string Decrypt(string encryptedText)

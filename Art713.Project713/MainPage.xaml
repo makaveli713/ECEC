@@ -7,10 +7,11 @@
     mc:Ignorable="d">
 
     <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
-        <TextBox  Name="TextToEncrypt" HorizontalAlignment="Left" Margin="80,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="637" Width="560" AcceptsReturn="True" ToolTipService.ToolTip="put text to encrypt here" TabIndex="1" FontSize="20" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
-        <Button Content="Encrypt" Click="EncryptBtn_OnClick" Margin="640,83,0,610" Height="75" Width="85" TabIndex="2"/>
-        <TextBox Name="EncryptedTextBlock" HorizontalAlignment="Left" Margin="725,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="302" Width="474" FontSize="14" TabIndex="3" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
-        <TextBox Name="DecryptedTextBlock" HorizontalAlignment="Left" Margin="725,400,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Height="320" Width="474" FontSize="14" TabIndex="5" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
-        <Button Content="Decrypt" Name="DecryptBtn" Click="DecryptBtn_OnClick" HorizontalAlignment="Left" Margin="640,400,0,0" VerticalAlignment="Top" Height="85" Width="85" TabIndex="4"/>
+        <TextBox  Name="TextToEncrypt" HorizontalAlignment="Left" Margin="80,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="567" Width="560" AcceptsReturn="True" ToolTipService.ToolTip="put text to encrypt here" TabIndex="1" FontSize="20" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+        <Button Content="Encrypt" Click="EncryptBtn_OnClick" Margin="156,682,0,48" Height="38" Width="85" TabIndex="2"/>
+        <TextBox Name="EncryptedTextBlock" HorizontalAlignment="Left" Margin="666,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="302" Width="533" FontSize="14" TabIndex="3" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+        <TextBox Name="DecryptedTextBlock" HorizontalAlignment="Left" Margin="666,400,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Height="250" Width="533" FontSize="14" TabIndex="5" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+        <Button Content="Decrypt" Name="DecryptBtn" Click="DecryptBtn_OnClick" HorizontalAlignment="Left" Margin="246,682,0,0" VerticalAlignment="Top" Height="38" Width="85" TabIndex="4"/>
+        <Button Content="Open" Background="DarkRed"  Foreground="Black" Name="OpenBtn" Click="OpenBtn_OnClick" HorizontalAlignment="Left" Margin="80,682,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Page>
