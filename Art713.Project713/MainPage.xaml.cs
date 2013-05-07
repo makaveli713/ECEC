@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Text;
+using Art713.Project713.Auxiliary;
 using Art713.Project713.Cryptography;
 using Windows.Foundation;
 using Windows.Graphics.Imaging;
@@ -42,22 +43,26 @@ namespace Art713.Project713
 
         private void EncryptBtn_OnClick(object sender, RoutedEventArgs e)
         {
-            EncryptionObj = new Encryption();
-            EncryptedTextBlock.Text = EncryptionObj.Encrypt(TextToEncrypt.Text);
+            //EncryptionObj = new Encryption();
+            //EncryptedTextBlock.Text = EncryptionObj.Encrypt(TextToEncrypt.Text);
         }
 
         private void DecryptBtn_OnClick(object sender, RoutedEventArgs e)
         {
+            /*
             DecryptedTextBlock.Text = EncryptionObj.Decrypt(EncryptedTextBlock.Text);
             DecryptBtn.Foreground = DecryptedTextBlock.Text == TextToEncrypt.Text ? new SolidColorBrush(Colors.Green) : new SolidColorBrush(Colors.Red);
+             */
 
-
-            //IRandomAccessStream fileStream = Encoding.UTF8.GetBytes(DecryptedTextBlock.Text);
-
-            MemoryStream memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(DecryptedTextBlock.Text));
+            var decryptedBytes = EncryptionObj.DecryptAndReturnBytesArray(EncryptedTextBlock.Text);
+         
+            MemoryStream memoryStream = new MemoryStream(decryptedBytes);
+            var fileStream = new MemoryRandomAccessStream(memoryStream);
 
             var bitmapImage = new BitmapImage();
-            bitmapImage.SetSource(fileStream);
+            bitmapImage.SetSourceAsync(fileStream);            
+
+            /*
             var image = new Image
             {
                 Source = bitmapImage,
@@ -66,10 +71,12 @@ namespace Art713.Project713
                 Visibility = Visibility.Visible,
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalAlignment = VerticalAlignment.Top,
-                Margin = new Thickness(0, 0, 0, 0)
+                Margin = new Thickness(30, 30, 0, 0)
             };
-            // */
+             */
 
+            //ImagesGrid.Children.Insert(0, image);
+            MyImage.Source = bitmapImage;
         }
 
         private async void OpenBtn_OnClick(object sender, RoutedEventArgs e)
@@ -80,7 +87,7 @@ namespace Art713.Project713
             var file = await openPicker.PickSingleFileAsync();
 
             if (file != null)
-            {
+            {               
                 IRandomAccessStream fileStream = await file.OpenAsync(FileAccessMode.Read);
 
                 var dataReader = new DataReader(fileStream);
@@ -114,8 +121,12 @@ namespace Art713.Project713
                      */
                     ImagesGrid.Children.Insert(0, image);
 
-                    var encoding = Encoding.UTF8;
-                    TextToEncrypt.Text = encoding.GetString(buffer, 0, buffer.Length);
+                    EncryptionObj = new Encryption();
+                    EncryptedTextBlock.Text =  EncryptionObj.Encrypt(buffer);
+                    
+
+                    //var encoding = Encoding.UTF8;
+                    //TextToEncrypt.Text = encoding.GetString(buffer, 0, buffer.Length);
 
                 }
                 if (file.FileType == ".txt")

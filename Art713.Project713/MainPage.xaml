@@ -9,11 +9,12 @@
     <Grid Name="MainGrid" Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
         <TextBox  Name="TextToEncrypt" HorizontalAlignment="Left" Margin="80,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="302" Width="560" AcceptsReturn="True" ToolTipService.ToolTip="put text to encrypt here" TabIndex="1" FontSize="20" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
         <Button Content="Encrypt" Click="EncryptBtn_OnClick" Margin="156,655,0,48" Height="65" Width="85" TabIndex="2"/>
-        <TextBox Name="EncryptedTextBlock" HorizontalAlignment="Left" Margin="666,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="302" Width="533" FontSize="14" TabIndex="3" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
-        <TextBox Name="DecryptedTextBlock" HorizontalAlignment="Left" Margin="666,400,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Height="250" Width="533" FontSize="14" TabIndex="5" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+        <TextBox Name="EncryptedTextBlock" HorizontalAlignment="Left" Margin="666,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="452" Width="533" FontSize="14" TabIndex="3" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+        <TextBox Name="DecryptedTextBlock" HorizontalAlignment="Left" Margin="666,560,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Height="90" Width="214" FontSize="14" TabIndex="5" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
         <Button Content="Decrypt" Name="DecryptBtn" Click="DecryptBtn_OnClick" HorizontalAlignment="Left" Margin="241,655,0,0" VerticalAlignment="Top" Height="65" Width="89" TabIndex="4"/>
         <Button Content="Open" Background="DarkRed"  Foreground="Black" Name="OpenBtn" Click="OpenBtn_OnClick" HorizontalAlignment="Left" Margin="80,655,0,0" VerticalAlignment="Top" Height="65" Width="76"/>
         <Image HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Margin="100,100,0,0"/>
         <Grid Name="ImagesGrid" HorizontalAlignment="Left" Height="250" Margin="80,400,0,0" VerticalAlignment="Top" Width="560"/>
+        <Image Name="MyImage" HorizontalAlignment="Left" Height="100" Margin="1099,560,0,0" VerticalAlignment="Top" Width="100"/>
     </Grid>
 </Page>
