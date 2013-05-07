@@ -108,6 +108,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Auxiliary\Math.cs" />
+    <Compile Include="Auxiliary\MemoryRandomAccessStream.cs" />
     <Compile Include="Cryptography\Encryption.cs" />
     <Compile Include="Entities\EllipticCurve.cs" />
     <Compile Include="Entities\Point.cs" />
