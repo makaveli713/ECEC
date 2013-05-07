@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Text;
 using Art713.Project713.Cryptography;
+using Windows.Foundation;
 using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.Storage.Streams;
 using Windows.UI;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
@@ -57,6 +59,45 @@ namespace Art713.Project713
 
             if (file != null)
             {
+                if (file.FileType == ".jpg")
+                {
+                    var bitmapImage = new BitmapImage();
+                    using (IRandomAccessStream fileStream = await file.OpenAsync(FileAccessMode.Read))
+                    {
+                        bitmapImage.SetSource(fileStream);
+                        var image = new Image
+                            {
+                                Source = bitmapImage,
+                                Width = 100,
+                                Height = 100,
+                                Visibility = Visibility.Visible,
+                                HorizontalAlignment = HorizontalAlignment.Left,
+                                VerticalAlignment = VerticalAlignment.Top
+                            };
+                        var thickness = new Func<Thickness>(()=> ImagesGrid.Children.Count*100 < 400 ? new Thickness(ImagesGrid.Children.Count*100, 0, 0, 0) : new Thickness(0, 100, 0, 0)); // CHANGE!
+                        image.Margin = thickness();                    
+                        ImagesGrid.Children.Insert(ImagesGrid.Children.Count, image);
+
+                    }
+                }
+                if (file.FileType == ".txt")
+                {
+                    using (IRandomAccessStream fileStream = await file.OpenAsync(FileAccessMode.Read))
+                    {
+                        var dataReader = new DataReader(fileStream);
+                        await dataReader.LoadAsync((uint)fileStream.Size);
+                        var buffer = new byte[(int)fileStream.Size];
+                        dataReader.ReadBytes(buffer);
+                        var encoding = Encoding.UTF8;
+                        TextToEncrypt.Text = encoding.GetString(buffer, 0, buffer.Length);
+                    }
+                }
+            }
+
+
+            /*
+            if (file != null)
+            {
                 IRandomAccessStream stream = await file.OpenAsync(FileAccessMode.Read);
 
                 var dataReader = new DataReader(stream);
@@ -71,11 +112,38 @@ namespace Art713.Project713
                 }
 
                 if (file.FileType == ".jpg")
-                {
+                {                    
                     var bitmap = new BitmapImage();
-                    bitmap.SetSource(stream);                    
+                    bitmap.SetSource(stream);                  
+
+                    MyImage.Visibility = Visibility.Visible;
+                    MyImage.Stretch = Stretch.None;
+                    MyImage.Source = bitmap;
+
+                   
+
+                    var image = new Image
+                        {
+                            Source = bitmap,
+                            Width = 200,
+                            Height = 200,
+                            Visibility = Visibility.Visible,
+                            Margin = new Thickness(10, 10, 0, 0)
+                        };
+
+                    //image.HorizontalAlignment = System.Windows.HorizontalAlignment.Left;
+                    //image.VerticalAlignment = System.Windows.VerticalAlignment.Top;
+                    //Point tappedPoint = e.GetPosition(contentGrid);
+                    //contentGrid.Children.Add(image);
+
+                    //MainGrid.Children.Add(image);
+                      
+                    
+                    //MainGrid.Children.Insert(0,image);
                 }
-            }        
+             
+            }
+             */
         }
     }
 }
